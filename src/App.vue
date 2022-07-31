@@ -8,7 +8,7 @@
     >
       <v-row>
         <v-col align="center">
-          <router-link to="/">
+          <router-link style="text-decoration: none; color: inherit;" to="/">
             <v-avatar height="80px" width="160px" :tile="true" class="ma-5 pa-5">
                 Seek Yours
             </v-avatar>
@@ -34,3 +34,7 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+
+</style>
