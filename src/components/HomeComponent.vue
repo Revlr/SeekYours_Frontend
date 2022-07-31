@@ -12,6 +12,8 @@
             </v-col>
           </v-row>
 
+
+          <!--습득물 검색-->
           <v-row>
             <v-col>
               <v-card flat>
@@ -19,8 +21,6 @@
               </v-card>
             </v-col>
           </v-row>
-
-          <!--항목-->
           <v-row>
             <v-col xs="12" md="6" v-for="(v, i) in item" :key="i">
               <v-card min-width="300" flat>
@@ -115,4 +115,9 @@ export default {
 
   }
 };
+
+
+
+
+
 </script>
