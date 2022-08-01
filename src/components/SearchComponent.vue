@@ -17,7 +17,7 @@
           <v-row>
             <v-col>
               <v-card flat>
-                <h2>습득물 검색{{select}}</h2>
+                <h2>습득물 검색</h2>
               </v-card>
             </v-col>
           </v-row>

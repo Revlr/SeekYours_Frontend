@@ -31,20 +31,6 @@ export default {
   data: () => ({
   }),
 
-  //map mount
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement('script');
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f421a1df81a6ea4bbdbd1ad7e05685be';
-      document.head.appendChild(script);
-    }
-  },
-
   methods: {
   }
 };
