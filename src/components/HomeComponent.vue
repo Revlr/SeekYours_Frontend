@@ -27,12 +27,45 @@
 
 <script>
 export default {
+  name: 'HomeComponent',
   data: () => ({
   }),
 
-  name: 'HomeComponent',
-  methods: {
+  //map mount
+  mounted() {
+    if (window.kakao && window.kakao.maps) {
+      this.initMap();
+    } else {
+      const script = document.createElement('script');
+      /* global kakao */
+      script.onload = () => kakao.maps.load(this.initMap);
+      script.src =
+        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f421a1df81a6ea4bbdbd1ad7e05685be';
+      document.head.appendChild(script);
+    }
+  },
 
+  methods: {
   }
 };
 </script>
+
+
+
+<style scoped>
+.test {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+#map {
+  width: 95%;
+  height: 600px;
+  border: 1px #a8a8a8 solid;
+}
+h2 {
+  margin-left: 20px;
+}
+</style>
