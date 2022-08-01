@@ -71,6 +71,18 @@
               </v-menu>
             </v-col>
           </v-row>
+          <v-row> 
+            <v-col>
+                <section class="test">
+                <div id="map"></div>
+              </section>
+            </v-col>
+       
+          </v-row>
+          
+
+
+
         </v-card>
       </v-flex>
     </v-layout>
@@ -79,6 +91,7 @@
 
 <script>
 export default {
+  name: 'HomeComponent',
   data: () => ({
     select: {},
     item: {'분류명': ['지갑','핸드폰'],
@@ -96,8 +109,32 @@ export default {
     menu1: false,
     menu2: false
   }),
+  created() {
+    if (!("geolocation" in navigator)) {
+      return;
+    }
 
-  name: 'HomeComponent',
+    // get position
+    navigator.geolocation.getCurrentPosition(pos => {
+      this.latitude = pos.coords.latitude;
+      this.longitude = pos.coords.longitude;
+
+      if (window.kakao && window.kakao.maps) {
+
+        this.initMap();
+
+      } else {
+        const script = document.createElement("script");
+        /* global kakao */
+        script.onload = () => kakao.maps.load(this.initMap);
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f421a1df81a6ea4bbdbd1ad7e05685be";
+        document.head.appendChild(script);
+      }
+
+    }, err => {
+      alert(err.message);
+    })
+  }, 
   methods: {
     hello: function () {
       console.log('Hello')
@@ -111,13 +148,61 @@ export default {
       this.e_date = v;
       this.menu2 = false;
       this.$refs.menu2.save(v);
-    }
+    },
+    initMap() {
+      const container = document.getElementById("map");
+      const options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 5,
+      };
+      this.map = new kakao.maps.Map(container, options);
+      this.displayMarker([[this.latitude, this.longitude]]);
+    },
+    displayMarker(markerPositions) {
+      if (this.markers.length > 0) {
+        this.markers.forEach((marker) => marker.setMap(null));
+      }
 
+      const positions = markerPositions.map(
+          (position) => new kakao.maps.LatLng(...position)
+      );
+
+      if (positions.length > 0) {
+        this.markers = positions.map(
+            (position) =>
+                new kakao.maps.Marker({
+                  map: this.map,
+                  position,
+                })
+        );
+
+        const bounds = positions.reduce(
+            (bounds, latlng) => bounds.extend(latlng),
+            new kakao.maps.LatLngBounds()
+        );
+
+        this.map.setBounds(bounds);
+      }
+    }
   }
 };
-
-
-
-
-
 </script>
+
+<style scoped>
+.test {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#map {
+  width: 95%;
+  height: 600px;
+  border: 1px #a8a8a8 solid;
+}
+h2{
+  margin-left:20px;
+}
+</style>
