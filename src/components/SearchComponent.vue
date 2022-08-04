@@ -34,6 +34,13 @@
                     <v-select v-if="select['습득지역']" :items="city[select['습득지역']]" :label="'세부지역'" class="pa-4" v-model="select['세부지역']"></v-select>
                   </v-col>
                 </v-row>
+                <v-row v-if="i=='분실자명' || i=='습득물명'">
+                  <v-col>
+                    <v-text-field label="왜 변수가 안들어가는가"></v-text-field>
+                  </v-col>
+                </v-row>
+
+
               </v-card>
             </v-col>
           </v-row>
