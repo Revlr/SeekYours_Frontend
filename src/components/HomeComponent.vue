@@ -12,7 +12,7 @@
               <v-col>
                 <h1>Seek Yours는 <br>어쩌구 저쩌구를 통해서 <br>이렇게 저렇게 <br>잃어버린 물건을<br>찾을 수 있습니다! <br>뿌슝 빠슝!</h1>
                 <br><br><br>
-                <router-link to="/search">
+                <router-link style="text-decoration: none; color: inherit;" to="/search">
                   <v-btn color="primary">검색하기</v-btn>
                 </router-link>
               </v-col>
@@ -36,22 +36,3 @@ export default {
 };
 </script>
 
-
-
-<style scoped>
-.test {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-}
-#map {
-  width: 95%;
-  height: 600px;
-  border: 1px #a8a8a8 solid;
-}
-h2 {
-  margin-left: 20px;
-}
-</style>
