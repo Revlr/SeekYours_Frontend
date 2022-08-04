@@ -4,6 +4,8 @@
     <v-layout row wrap>
       <v-flex>
         <br><br>
+        <h2> Seek Yours Map </h2>
+        <br>
         <!--지도 띄우기-->
           <v-row>
             <v-col>
@@ -12,10 +14,67 @@
               </section>
             </v-col>
           </v-row>
-          <!---->
-        <v-card>
-            
-        </v-card>
+        <!--분실물 목록-->
+        <br><br>
+        <h2> 분실물 목록 (이 옆에.. 검색된 필터들 옆에 나열하면 어떤지?) </h2>
+        <v-row>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+            <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
+              <v-card  height="300" flat >
+                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
+                <v-card flat>에어팟</v-card>
+                <v-card flat>2022-08-04</v-card>
+                <v-card flat>삼송신원파출소</v-card>
+              </v-card>
+          </v-col>
+        </v-row>
       </v-flex>
     </v-layout>
   </v-container>
@@ -40,6 +99,7 @@ export default {
   },
 
   name: 'ResultComponent',
+  list: ['에어팟','가방','신발'],
   methods: {
     s_date_search(v) {
       this.s_date = v;
