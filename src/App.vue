@@ -10,13 +10,13 @@
         <v-col align="left">
           <router-link style="text-decoration: none; color: inherit;" to="/">
             <v-avatar height="80px" width="300px" :tile="true" class="ma-5 pa-5">
-              <h1 class="purple--text">Seek Yours</h1>
+              <h1 class="indigo--text">Seek Yours</h1>
             </v-avatar>
           </router-link>
         </v-col>
         <v-col align="right">
           <router-link style="text-decoration: none; color: inherit;" to="/search">
-            <v-icon size="30" color="purple">mdi-magnify</v-icon>
+            <v-icon size="30" color="indigo">mdi-magnify</v-icon>
           </router-link>
         </v-col>
       </v-row>
@@ -25,7 +25,7 @@
     <v-main>
       <v-toolbar
       height="10px"
-      color="purple"
+      color="indigo"
     >
     </v-toolbar>
       <v-card
@@ -34,8 +34,8 @@
         <router-view />
       </v-card>
     </v-main>
-    <v-footer height="100" color="grey" justify="center">
-      <v-avatar height="100%" width="100%" color="grey" tile></v-avatar>
+    <v-footer height="300px" color="white" justify="center">
+      <iframe id="frame" scrolling="no" src="https://www.safe182.go.kr/api/lcm/amberListTForm.do?esntlId=10000476&authKey=b8fcbe4344044bdb&viewType=02" frameborder="0"></iframe>
     </v-footer>
   </v-app>
 </template>
@@ -50,5 +50,14 @@ export default {
 </script>
 
 <style scoped>
-
+  #frame {
+        -ms-zoom: 2;
+        -moz-transform: scale(2);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(2);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(2);
+        -webkit-transform-origin: 0 0;
+        width:50%; height:100px;
+    }
 </style>

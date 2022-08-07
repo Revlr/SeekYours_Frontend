@@ -4,77 +4,65 @@
     <v-layout row wrap>
       <v-flex>
         <br><br>
-        <h2> Seek Yours Map </h2>
+        <h4>  검색결과 ( {{resp_data.length}} 건) </h4>
+        <v-chip class="ma-4" v-for="(v, i) in selected_options" :key="i">{{v}}</v-chip>
         <br>
         <!--지도 띄우기-->
-          <v-row>
-            <v-col>
-              <section class="test">
-                <div id="map"></div>
-              </section>
-            </v-col>
-          </v-row>
+        <section class="test">
+          <v-card id="map"></v-card>
+        </section>
         <!--분실물 목록-->
         <br><br>
-        <h2> 분실물 목록 (이 옆에.. 검색된 필터들 옆에 나열하면 어떤지?) </h2>
         <v-row>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
+          <v-col xs="12" sm="6" md="4" lg="3" xl="2" v-for="(v,i) in resp_data" :key="i" align="center">
+            <v-dialog :v-model="dialog" width="550">
+              <template v-slot:activator="{ on, attrs }">
+
+                <v-card v-bind="attrs" v-on="on" @click="dialog = false" height="250" flat min-width="250"
+                  max-width="250" class="ma-2 pa-2">
+                  <v-img contain :src="v.image" height="75%"></v-img>
+                  <v-card flat>{{v.item}}</v-card>
+                  <v-card flat>{{v.date}}</v-card>
+                  <v-card flat>{{v.place}}</v-card>
+                </v-card>
+              </template>
+              <v-card >
+                <v-card-title class="grey lighten-2">
+                  <v-row>
+                    <v-col>
+                      {{v.item}}
+                    </v-col>
+                    <v-col align="right">
+                      {{v.id}}
+                    </v-col>
+                  </v-row>
+                </v-card-title>
+
+                <v-card-text>
+                  <v-img :src="v.image" class="ma-4" />
+                  <v-card flat><p>물품명 : {{v.item}}</p></v-card>
+                  <v-card flat><p>접수일 : {{v.date}}</p></v-card>
+                  <v-card flat><p>보관장소 : {{v.place}}</p></v-card>
+                  <v-card flat><p>습득장소 : {{v.get_place}}</p></v-card>
+                  <v-card flat><p>전화번호 : {{v.tel}}</p></v-card>
+                  <v-card flat><p>보관여부 : <b class="red--text">{{v.status}}</b></p></v-card>
+                  <br><v-divider></v-divider><br>
+                  <v-card flat>{{v.sbjt}}</v-card><br><br>
+                </v-card-text>
+
+                <v-divider></v-divider>
               </v-card>
-          </v-col>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
-          </v-col>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
-          </v-col>
-            <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
-          </v-col>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
-          </v-col>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
-          </v-col>
-          <v-col xs="12" sm="6" md="4" lg="3" xl="2">  
-              <v-card  height="300" flat >
-                <v-img contain src="@/assets/test1.jpg" height="75%"></v-img>
-                <v-card flat>에어팟</v-card>
-                <v-card flat>2022-08-04</v-card>
-                <v-card flat>삼송신원파출소</v-card>
-              </v-card>
+            </v-dialog>
           </v-col>
         </v-row>
+        <template>
+          <div class="text-center">
+            <v-pagination
+              v-model="page"
+              :length="6"
+            ></v-pagination>
+          </div>
+        </template>
       </v-flex>
     </v-layout>
   </v-container>
@@ -83,6 +71,108 @@
 <script>
 export default {
   data: () => ({
+    dialog: false,
+    selected_options:["서울특별시", "강남구", "지갑", "2022-08-05 ~ 2022-08-06"],
+    resp_data:[
+      {
+        id : "F2022080600000185",
+        item : "피에르가르덴 남성지갑",
+        date : "2022-08-06",
+        get_place : "마포구노상",
+        area : "서울특별시",
+        specific_area : "",
+        place : "홍익지구대",
+        tel : "02-334-8150",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806031155613.jpg",
+        type : "지갑 > 남성용 지갑",
+        sbjt : "홍익지구대에서는 [2022.08.06] [피에르가르덴 남성지갑(그레이(회)색)]을 습득/보관 하였습니다. 분실하신 분께서는 본인을 증명할 수 있는 서류를 지참하시어 보관중으로 기재되어 있는 기관에 방문하시어 보관물품을 수령하시기 바랍니다. 특이사항 : 주민등록증1개, 운전면허증 1개, 신용카드 4개,",
+      },
+      {
+        id : "F2022080600000183",
+        item : "지갑",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "대림지구대",
+        tel : "02-2118-9108",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806031242801.jpg",
+        type : "지갑 > 남성용 지갑",
+        sbjt : "대림지구대에서는 [2022.08.06] [지갑(블랙(검정)색)]을 습득/보관 하였습니다. 분실하신 분께서는 본인을 증명할 수 있는 서류를 지참하시어 보관중으로 기재되어 있는 기관에 방문하시어 보관물품을 수령하시기 바랍니다. 특이사항 : 없음",
+      },
+      {
+        id : "F2022080600000210",
+        item : "삼성 휴대폰",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "염창지구대",
+        tel : "",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806030658651.jpg",
+        type : "휴대폰 > 삼성휴대폰",
+        sbjt : "염창지구대에서는 [2022.08.06] [삼성 휴대폰(블랙(검정)색)]을 습득/보관 하였습니다.",
+      },
+      {
+        item : "AK PLAZA 쇼핑백",
+        id : "V0002048H08060002",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "녹번역(3호선)",
+        tel : "",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806051045456.jpg",
+        type : "쇼핑백 > 쇼핑백",
+        sbjt : "녹번역(3호선)에서는 [22.08.06] [AK PLAZA 쇼핑백(로열블루(밝은남)색)]을 습득/보관 하였습니다.",
+      },
+      {
+        item : "아이폰",
+        id : "F2022080600000303",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "이태원파출소",
+        tel : "",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806052751195.jpg",
+        type : "휴대폰 > 아이폰",
+        sbjt : "이태원파출소에서는 [2022.08.06] [아이폰(그레이(회)색)]을 습득/보관 하였습니다.",
+      },
+      {
+        item : "삼성 스마트폰",
+        id : "V0000343H08060002",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "노원역(7호선)",
+        tel : "",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/r_20220806052636096.jpg",
+        type : "휴대폰 > 삼성휴대폰",
+        sbjt : "노원역(7호선)에서는 [22.08.06] [삼성 스마트폰(코럴(산호)색)]을 습득/보관 하였습니다.",
+      },
+      {
+        item : "안경",
+        id : "V0000294H08060004",
+        date : "2022-08-06",
+        get_place : "",
+        area : "서울특별시",
+        specific_area : "",
+        place : "마천역(5호선)",
+        tel : "",
+        status : "보관중",
+        image : "https://www.lost112.go.kr/lostnfs/images/uploadImg/thumbnail/20220806/20220806051704016.jpeg",
+        type : "기타물품 > 안경",
+        sbjt : "마천역(5호선)에서는 [22.08.06] [안경(블랙(검정)색)]을 습득/보관 하였습니다.",
+      },
+    ]
   }),
 
   //map mount
@@ -93,67 +183,31 @@ export default {
       const script = document.createElement('script');
       script.onload = () => kakao.maps.load(this.initMap);
       script.src =
-        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f421a1df81a6ea4bbdbd1ad7e05685be';
+        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=******************';
       document.head.appendChild(script);
     }
   },
 
   name: 'ResultComponent',
-  list: ['에어팟','가방','신발'],
+  watch: {
+      dialog (val) {
+        if (!val) return
+
+        setTimeout(() => (this.dialog = false), 4000)
+      },
+    },
   methods: {
-    s_date_search(v) {
-      this.s_date = v;
-      this.menu1 = false;
-      this.$refs.menu1.save(v);
-    },
-    e_date_search(v) {
-      this.e_date = v;
-      this.menu2 = false;
-      this.$refs.menu2.save(v);
-    },
+
     
     initMap() {
+      //var x = 127.0629852, y = 37.49664389; //위경도 정보 엑셀에서 시/군 별로 중앙점 좌표 정리된거에서 가져옴
       var mapContainer = document.getElementById('map'),
         mapOption = {
-          center: new kakao.maps.LatLng(37.28390075, 127.1569912),
+          center: new kakao.maps.LatLng(37.56359, 126.9673513),
           level: 3 // 지도의 확대 레벨
         };
-      var map = new kakao.maps.Map(mapContainer, mapOption)
-      var positions = [
-        {
-          title: '클린에어존',
-          latlng: new kakao.maps.LatLng(37.285711, 127.154287)
-        },
-        {
-          title: '루라헤어',
-          latlng: new kakao.maps.LatLng(37.280597, 127.154542)
-        },
-        {
-          title: '조영일도예공방',
-          latlng: new kakao.maps.LatLng(37.287717, 127.162393)
-        },
-        {
-          title: '커피로',
-          latlng: new kakao.maps.LatLng(37.281496, 127.152854)
-        },
-        {
-          title: '강남왕족발',
-          latlng: new kakao.maps.LatLng(37.281578, 127.160880)
-        }
-      ];
+      new kakao.maps.Map(mapContainer, mapOption);
       
-      
-      var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";// 마커 이미지의 이미지 주소
-      for (var i = 0; i < positions.length; i++) {
-        var imageSize = new kakao.maps.Size(24, 35); // 마커 이미지의 이미지 크기
-        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지 생성
-        this.marker = new kakao.maps.Marker({  // 마커 생성
-          map: map, // 마커를 표시할 지도
-          position: positions[i].latlng, // 마커를 표시할 위치
-          title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-          image: markerImage // 마커 이미지 
-        });
-      }
     }
   }
 };
@@ -169,8 +223,8 @@ export default {
 
 }
 #map {
-  width: 95%;
-  height: 600px;
+  width: 100%;
+  height: 500px;
   border: 1px #a8a8a8 solid;
 }
 h2 {
