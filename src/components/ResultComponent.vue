@@ -69,6 +69,7 @@
 </template>
 
 <script>
+
 export default {
   data: () => ({
     dialog: false,
@@ -174,7 +175,7 @@ export default {
       },
     ]
   }),
-
+  
   //map mount
   mounted() {
     if (window.kakao && window.kakao.maps) {
@@ -182,8 +183,8 @@ export default {
     } else {
       const script = document.createElement('script');
       script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=******************';
+      const VUE_APP_API = process.env.VUE_APP_API;
+      script.src = VUE_APP_API;
       document.head.appendChild(script);
     }
   },
